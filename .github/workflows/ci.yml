@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  Lint:
     runs-on: ubuntu-latest
 
     steps:
@@ -40,13 +40,42 @@ jobs:
         run: |
           poetry install
 
-      - name: Isort
+      - name: Run isort
         run: |
           poetry run isort . --check-only
 
-      - name: Flake8
+      - name: Run flake8
         run: |
           poetry run flake8
+
+  Build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.9"
+
+      - name: Install Poetry
+        env:
+          POETRY_HOME: /opt/poetry
+          POETRY_VERSION: 1.1.13
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$POETRY_HOME/bin" >> $GITHUB_PATH
+      - name: Check Poetry
+        run: |
+          poetry --version
+
+      - name: Install Dependencies
+        run: |
+          poetry install
+
+      - name: Build
+        run: |
+          poetry build --format wheel
+          poetry export --format requirements.txt --output constraints.txt --without-hashes
 
 
 
