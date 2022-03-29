@@ -36,9 +36,13 @@ jobs:
         run: |
           poetry install
 
-      - name: Run linter
+      - name: Flake8
         run: |
           poetry run flake8
+
+      - name: Isort
+        run: |
+          poetry run isort . --check-only
 
 
 
