@@ -28,10 +28,11 @@ jobs:
         run: |
           curl -sSL https://install.python-poetry.org | python3 -
           echo "$POETRY_HOME/bin" >> $GITHUB_PATH
+      - name: Check Poetry
+        run: |
           echo "PATH = $PATH"
           echo "POETRY_HOME = $POETRY_HOME"
           echo "GITHUB_PATH = $GITHUB_PATH"
-        run: |
           poetry --version
 
 
