@@ -76,5 +76,4 @@ jobs:
 
       - name: Build
         run: |
-          poetry build --format wheel
-          poetry export --format requirements.txt --output constraints.txt --without-hashes
+          poetry build -f wheel
