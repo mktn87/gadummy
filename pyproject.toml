@@ -1,0 +1,28 @@
+[build-system]
+requires = ["poetry-core~=1.1.13"]
+build-backend = "poetry.core.masonry.api"
+
+#
+# Poetry
+#
+
+[tool.poetry]
+name = "gadummy"
+version = "1.9.2"
+description = "GA Dummy"
+authors = ["Marcos Kintschner <marcoskin@pm.me>"]
+
+[tool.poetry.dependencies]
+
+[tool.poetry.dev-dependencies]
+black = "^22.3.0"
+isort = "^5.10.0"
+flake8 = "^4.0.1"
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
