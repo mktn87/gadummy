@@ -30,10 +30,15 @@ jobs:
           echo "$POETRY_HOME/bin" >> $GITHUB_PATH
       - name: Check Poetry
         run: |
-          echo "PATH = $PATH"
-          echo "POETRY_HOME = $POETRY_HOME"
-          echo "GITHUB_PATH = $GITHUB_PATH"
           poetry --version
+
+      - name: Install Dependencies
+        run: |
+          poetry install
+
+      - name: Run linter
+        run: |
+          flake8 .
 
 
 
