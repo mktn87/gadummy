@@ -2,8 +2,12 @@ name: Continuous Integration
 
 on:
   push:
+    paths:
+      - '**.py'
     branches: [ master, develop ]
   pull_request:
+    paths:
+      - '**.py'
     branches: [ master, develop ]
 
   # Allows you to run this workflow manually from the Actions tab
