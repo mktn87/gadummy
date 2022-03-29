@@ -27,9 +27,10 @@ jobs:
           POETRY_VERSION: 1.1.13
         run: |
           curl -sSL https://install.python-poetry.org | python3 -
-          echo "${POETRY_HOME}/bin" >> $GITHUB_PATH
-          echo "POETRY_HOME = ${POETRY_HOME}"
-          echo "GITHUB_PATH = ${GITHUB_PATH}"
+          echo "$POETRY_HOME/bin" >> $GITHUB_PATH
+          echo "PATH = $PATH"
+          echo "POETRY_HOME = $POETRY_HOME"
+          echo "GITHUB_PATH = $GITHUB_PATH"
           poetry --version
 
 
