@@ -106,6 +106,5 @@ jobs:
 
       - name: Run tests
         run: |
-          poetry shell
-          python tests.py
+          poetry run python tests.py
 
