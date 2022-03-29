@@ -77,3 +77,35 @@ jobs:
       - name: Build
         run: |
           poetry build -f wheel
+
+  Test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.9"
+
+      - name: Install Poetry
+        env:
+          POETRY_HOME: /opt/poetry
+          POETRY_VERSION: 1.1.13
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$POETRY_HOME/bin" >> $GITHUB_PATH
+      - name: Check Poetry
+        run: |
+          poetry --version
+
+      - name: Install Dependencies
+        run: |
+          poetry install
+
+      - name: Run tests
+        run: |
+          poetry shell
+          python tests.py
+
