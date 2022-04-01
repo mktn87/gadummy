@@ -1,5 +1,9 @@
 name: Continuous Integration
 
+env:
+  ENV_FILE: '.env'
+  POETRY_VIRTUALENVS_CREATE: false
+
 on:
   push:
     paths:
@@ -10,101 +14,40 @@ on:
       - '**.py'
     branches: [ master, develop ]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
 jobs:
-  Lint:
+  CI:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        rule: ["lint", "test"]
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: Load Env
+        run: |
+          while read line; do
+            if [ -n "$line" ]
+            then
+              echo "$line" >> $GITHUB_ENV
+            fi
+          done < ${{ env.ENV_FILE }}
 
       - name: Set up Python 3.9
         uses: actions/setup-python@v3
         with:
           python-version: "3.9"
 
-      - name: Install Poetry
-        env:
-          POETRY_HOME: /opt/poetry
-          POETRY_VERSION: 1.1.13
+      - name: Install Dev Deps
         run: |
-          curl -sSL https://install.python-poetry.org | python3 -
+          make install_dev_deps
           echo "$POETRY_HOME/bin" >> $GITHUB_PATH
-      - name: Check Poetry
-        run: |
-          poetry --version
 
       - name: Install Dependencies
         run: |
-          poetry install
+          make install_deps
 
-      - name: Run isort
+      - name: Run jobs
         run: |
-          poetry run isort . --check-only
-
-      - name: Run flake8
-        run: |
-          poetry run flake8
-
-  Build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v3
-        with:
-          python-version: "3.9"
-
-      - name: Install Poetry
-        env:
-          POETRY_HOME: /opt/poetry
-          POETRY_VERSION: 1.1.13
-        run: |
-          curl -sSL https://install.python-poetry.org | python3 -
-          echo "$POETRY_HOME/bin" >> $GITHUB_PATH
-      - name: Check Poetry
-        run: |
-          poetry --version
-
-      - name: Install Dependencies
-        run: |
-          poetry install
-
-      - name: Build
-        run: |
-          poetry build -f wheel
-
-  Test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v3
-        with:
-          python-version: "3.9"
-
-      - name: Install Poetry
-        env:
-          POETRY_HOME: /opt/poetry
-          POETRY_VERSION: 1.1.13
-        run: |
-          curl -sSL https://install.python-poetry.org | python3 -
-          echo "$POETRY_HOME/bin" >> $GITHUB_PATH
-      - name: Check Poetry
-        run: |
-          poetry --version
-
-      - name: Install Dependencies
-        run: |
-          poetry install
-
-      - name: Run tests
-        run: |
-          poetry run python tests.py
-
+          make ${{ matrix.rule }}
