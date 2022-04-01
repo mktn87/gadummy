@@ -1,7 +1,9 @@
 name: Continuous Integration
 
 env:
-  ENV_FILE: '.env'
+  PYTHON_VERSION: 3.9.10
+  POETRY_VERSION: 1.1.13
+  POETRY_HOME: /opt/poetry
   POETRY_VIRTUALENVS_CREATE: false
 
 on:
@@ -25,20 +27,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Load Env
-        run: |
-          echo "$GITHUB_WORKSPACE/${{ env.ENV_FILE }}"
-          while read line; do
-            if [ -n "$line" ]
-            then
-              echo "$line" >> $GITHUB_ENV
-            fi
-          done < "$GITHUB_WORKSPACE/${{ env.ENV_FILE }}"
-
-      - name: Set up Python 3.9
+      - name: Set up Python
         uses: actions/setup-python@v3
         with:
-          python-version: "3.9"
+          python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Install Dev Deps
         run: |
