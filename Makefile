@@ -10,8 +10,10 @@ install_deps:
 	@poetry install
 
 lint:
+	env | sort
 	poetry run isort . --check-only
 	poetry run flake8
 
 test:
+	env | sort
 	poetry run python tests.py
