@@ -27,6 +27,7 @@ jobs:
 
       - name: Load Env
         run: |
+          echo "$GITHUB_WORKSPACE/${{ env.ENV_FILE }}"
           while read line; do
             if [ -n "$line" ]
             then
