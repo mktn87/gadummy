@@ -2,6 +2,7 @@ include .env
 export
 
 install_dev_deps:
+	POETRY_HOME=${POETRY_HOME}
 	echo "POETRY_HOME INSIDE = ${POETRY_HOME}"
 	curl -sSL https://install.python-poetry.org | python3 -
 	export PATH="${POETRY_HOME}/bin:${PATH}"
