@@ -2,6 +2,7 @@
 # POETRY_VERSION=1.1.13
 # POETRY_HOME=/opt/poetry
 include .env
+export
 
 install_dev_deps:
 	echo "POETRY_HOME INSIDE = ${POETRY_HOME}"
