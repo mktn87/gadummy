@@ -1,13 +1,14 @@
-POETRY_HOME=/opt/poetry
-POETRY_VERSION=1.1.13
+include .env
+export
 
 install_dev_deps:
-	@echo "POETRY_HOME INSIDE = ${POETRY_HOME}"
+	echo "POETRY_HOME INSIDE = ${POETRY_HOME}"
 	curl -sSL https://install.python-poetry.org | python3 -
 	export PATH="${POETRY_HOME}/bin:${PATH}"
 
 install_deps:
-	@poetry install
+	echo "POETRY_HOME INSIDE = ${POETRY_HOME}"
+	poetry install
 
 lint:
 	env | sort
