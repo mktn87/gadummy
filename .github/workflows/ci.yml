@@ -33,10 +33,12 @@ jobs:
       - name: Install Dev Deps
         run: |
           make install_dev_deps
-          echo "$POETRY_HOME/bin" >> $GITHUB_PATH
+          echo "${POETRY_HOME}/bin" >> $GITHUB_PATH
+          echo "PATH OUTSIDE = ${PATH}"
 
       - name: Install Dependencies
         run: |
+          echo "PATH OUTSIDE = ${PATH}"
           make install_deps
 
       - name: Run jobs

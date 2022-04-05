@@ -8,6 +8,7 @@ install_dev_deps:
 
 install_deps:
 	echo "POETRY_HOME INSIDE = ${POETRY_HOME}"
+	echo "PATH INSIDE = ${PATH}"
 	poetry install
 
 lint:
