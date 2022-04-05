@@ -1,6 +1,5 @@
-include .env
-export
-
+PYTHON_VERSION=3.9.10
+POETRY_VERSION=1.1.13
 POETRY_HOME=/opt/poetry
 
 install_dev_deps:
