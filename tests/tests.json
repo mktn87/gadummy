@@ -1,0 +1,7 @@
+{
+  "verbosity": 3,
+  "logging": false,
+  "test_suites": {
+      "test_p1": ["test_p1_test"]
+  }
+}

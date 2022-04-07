@@ -20,5 +20,4 @@ lint:
 	poetry run flake8
 
 test:
-	env | sort
 	poetry run python tests.py
