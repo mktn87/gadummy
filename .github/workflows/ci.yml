@@ -18,10 +18,6 @@ jobs:
   CI:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        rule: ["lint", "test"]
-
     steps:
       - uses: actions/checkout@v3
 
@@ -44,12 +40,4 @@ jobs:
 
       - name: Run jobs
         run: |
-          make ${{ matrix.rule }}
-
-  coverage:
-    steps:
-      - name: Python Cov
-        uses: orgoro/coverage/v2
-        with:
-            coverageFile: path/to/coverage.xml
-            token: ${{ secrets.GITHUB_TOKEN }}
+          make lint
