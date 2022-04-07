@@ -19,6 +19,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      #
+      # Preparation
+      #
       - uses: actions/checkout@v3
 
       - name: Set up Python
@@ -26,18 +29,18 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
-      - name: Install Dev Deps
+      - name: Install Requisites
         run: |
-          make install_dev_deps
-          echo "$POETRY_HOME/bin"
+          make install_requisites
           echo "$POETRY_HOME/bin" >> $GITHUB_PATH
-          echo "PATH OUTSIDE = ${PATH}"
 
       - name: Install Dependencies
         run: |
-          echo "PATH OUTSIDE = ${PATH}"
           make install_deps
 
-      - name: Run jobs
+      #
+      # Actual jobs
+      #
+      - name: Run job
         run: |
           make lint
