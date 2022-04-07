@@ -44,7 +44,7 @@ jobs:
       - name: Python Cov
         uses: orgoro/coverage@v2
         with:
-          coverageFile: tests/report.xml
+          coverageFile: tests/coverage.xml
           token: ${{ secrets.GITHUB_TOKEN }}
 
 
