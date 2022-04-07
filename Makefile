@@ -4,18 +4,14 @@
 include .env
 # export
 
-install_dev_deps:
-	echo "POETRY_HOME INSIDE = ${POETRY_HOME}"
+install_requisites:
 	curl -sSL https://install.python-poetry.org | python3 -
 	export PATH="${POETRY_HOME}/bin:${PATH}"
 
 install_deps:
-	echo "POETRY_HOME INSIDE = ${POETRY_HOME}"
-	echo "PATH INSIDE = ${PATH}"
-	poetry install
+	poetry install --no-root ${INSTALL_DEPS_ARGS}
 
 lint:
-	env | sort
 	poetry run isort . --check-only
 	poetry run flake8
 
